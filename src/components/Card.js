@@ -5,7 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) =>
 ({
@@ -51,7 +51,9 @@ export default function SimpleCard() {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Learn More</Button>
+            <Container align='center'>
+              <Button size="small" variant='outlined' color='primary'>Learn More</Button>
+            </Container>
           </CardActions>
         </Card>
       </Grid>

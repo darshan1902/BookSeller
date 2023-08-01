@@ -3,9 +3,9 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import Welcome from './components/Welcome';
 import User from './components/User';
 import { Button } from '@material-ui/core';
-import { createTheme ,ThemeProvider } from '@material-ui/core/styles';
-// import { ThemeProvider } from '@material-ui/styles';
+import Home from './components/Home';
 import { purple } from '@material-ui/core/colors';
+import { createTheme ,ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createTheme({
   palette: {
@@ -13,7 +13,7 @@ const theme = createTheme({
       // Purple and green play nicely together.
       // main: purple[500],
       light: "#ff4081",
-      main: "#f50057",
+      main: purple[500],
       dark: "#c51162",
       contrastText: "#fff"
     },
@@ -43,26 +43,20 @@ function App() {
             display: 'flex',
             justifyContent: 'space-around',
             alignItems: 'center',
-            background: 'linear-gradient(120deg,pink,blueviolet)',
+            background: 'linear-gradient(120deg,pink,rgb(193, 132, 250))',
             height: 70
           }
         }>
 
-          <Button variant="outlined" color="primary">
             <NavLink to='/'> HOME </NavLink><br />
-          </Button>
-          <Button variant="outlined" color="primary">
             <NavLink to='/welcome'> WELCOME </NavLink><br />
-          </Button>
-          <Button variant="outlined" color="primary">
             <NavLink to='/user'> USER </NavLink>
-          </Button>
         </div>
 
         <Routes path='/'>
-          <Route index element={<h1>this is HOME PAGE</h1>} />
+          <Route index element={<Home/>} />
           <Route path='/welcome' element={<Welcome />} />
-          <Route path='/user' element={<User name="darshan" role="student" />} />
+          <Route path='/user' element={<User name="Darshan" role="student" />} />
         </Routes>
       </div>
     </ThemeProvider>

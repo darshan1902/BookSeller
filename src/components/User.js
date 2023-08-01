@@ -6,8 +6,8 @@ export default function User(props) {
   return (
    <>
      <div>
-        <h1>{props.name}</h1>
-        <h2>{props.role}</h2>
+        <Typography variant='h3' color='primary' align='center'>{props.name}</Typography>
+        <Typography variant='h6' color='secondary' align='center'>{props.role}</Typography>
     </div>
     <SimpleCard/>
 
