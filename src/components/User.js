@@ -1,6 +1,6 @@
 import React from 'react'
 import SimpleCard from './Card';
-
+import { Typography } from '@material-ui/core';
 
 export default function User(props) {
   return (
