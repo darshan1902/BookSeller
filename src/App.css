@@ -1,3 +1,8 @@
+*{
+  /* font-family: 'fira sans','fira code',Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+  /* overflow-x: hidden; */
+  /* overflow-y:auto; */
+}
 .App {
   text-align: center;
 }

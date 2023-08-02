@@ -2,7 +2,7 @@ import './App.css';
 import { Route, Routes, NavLink } from 'react-router-dom';
 import Welcome from './components/Welcome';
 import User from './components/User';
-import { Button } from '@material-ui/core';
+import {CssBaseline} from '@material-ui/core';
 import Home from './components/Home';
 import { purple } from '@material-ui/core/colors';
 import { createTheme ,ThemeProvider } from '@material-ui/core/styles';
@@ -13,7 +13,7 @@ const theme = createTheme({
       // Purple and green play nicely together.
       // main: purple[500],
       light: "#ff4081",
-      main: purple[500],
+      main: purple[500], 
       dark: "#c51162",
       contrastText: "#fff"
     },
@@ -22,21 +22,22 @@ const theme = createTheme({
       main: '#11cb5f',
     },
     typography: {
+      fontFamily:'Fira Sans',
       h1: {
         fontWeight: 300,
         fontSize: "6rem",
         lineHeight: 1.167,
         letterSpacing: "-0.01562em",
-        color:"#ff4081 !important"
+        color:"#ff4081 !important",
       }
-    }
+    },
+
   },
 });
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-
       <div>
         <div style={
           {
