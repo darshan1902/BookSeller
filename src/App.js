@@ -1,4 +1,5 @@
 import './App.css';
+import './index.js';
 import { Route, Routes, NavLink } from 'react-router-dom';
 import Welcome from './components/Welcome';
 import User from './components/User';
@@ -21,24 +22,27 @@ const theme = createTheme({
       // This is green.A700 as hex.
       main: '#11cb5f',
     },
-    typography: {
-      fontFamily:'Fira Sans',
-      h1: {
-        fontWeight: 300,
-        fontSize: "6rem",
-        lineHeight: 1.167,
-        letterSpacing: "-0.01562em",
-        color:"#ff4081 !important",
-      }
+  },
+  typography: {
+    fontFamily:'Fira Sans',
+    fontSize:15,
+    h1: {
+      fontWeight: 300,
+      fontSize: "6rem",
+      lineHeight: 1.167,
+      letterSpacing: "-0.01562em",
+      color:"#ff4081 !important",
     },
-
+    
   },
 });
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div>
+      <CssBaseline />
+  
+      <div >
         <div style={
           {
             display: 'flex',
@@ -49,9 +53,9 @@ function App() {
           }
         }>
 
-            <NavLink to='/'> HOME </NavLink><br />
-            <NavLink to='/welcome'> WELCOME </NavLink><br />
-            <NavLink to='/user'> USER </NavLink>
+            <NavLink to='/' style={{fontSize:'1.2rem',textDecoration:'none'}}>HOME 🏠</NavLink><br />
+            <NavLink to='/welcome' style={{fontSize:'1.3rem',textDecoration:'none'}} > WELCOME 👋</NavLink><br />
+            <NavLink to='/user' style={{fontSize:'1.3rem',textDecoration:'none'}}> USER 🤵 </NavLink>
         </div>
 
         <Routes path='/'>

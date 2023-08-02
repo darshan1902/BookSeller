@@ -1,160 +1,109 @@
 import React from 'react'
-import SimpleCard from './Card';
-import { Typography, makeStyles, Button, Container, Grid, TextField, FormHelperText, MenuItem, Select, InputLabel, FormControl, IconButton, InputAdornment, OutlinedInput, Hidden } from '@material-ui/core';
+import { Typography, Button, Grid} from '@material-ui/core';
+import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import TextFieldCustom from '../UI/TextField';
+import Password from '../UI/PassWord';
+import Select from '../UI/Select';
 
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
 
 export default function User(props) {
 
-  const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const initialValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    role: ''
+  }
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-  const [showPassword, setShowPassword] = React.useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const Option = ['User', 'Seller', 'Admin'];
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required('First Name isRequired').min(5, "Min 5 characters"),
 
+    lastName: Yup.string().required('Last Name isRequired').min(5, "Min 5 characters"),
+
+    email: Yup.string().email('Email is invalid').required('Email is required'),
+
+    password: Yup.string().required('Password is required').min(8, 'Password must be atleast 8 characters'),
+
+    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Password must match').required('Confirm Password is required'),
+
+    role: Yup.string().required('Role is required')
+  })
 
   return (
-    < div style={{overflow:'hidden'}}>
+    < div style={{ overflow: 'hidden' }}>
       <Typography variant='h4' align='center'>
         Create Account
       </Typography>
 
+      <Formik 
+        validateOnChange='true'
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={values => console.log(values)}>
 
-      <Typography variant='h5' style={{ marginLeft: 100 }}>
-        Personal Information
-      </Typography>
-      <Grid container style={{ marginLeft: 100 }}>
-        <Grid item xs={5}>
-          {/* <Typography variant='h6' >First Name</Typography>
-          <input type='text'></input> */}
-          <TextField id="standard-basic" label="First Name" />
+        <Form >
 
-        </Grid>
-        <Grid item xs={5}>
-          <TextField id="standard-basic" label="Last Name" />
+          <Typography variant='h5' style={{ marginLeft: 100 }}>
+            Personal Information
+          </Typography>
+          <Grid container style={{ marginLeft: 100 }}>
+            <Grid item xs={5}>
+              <TextFieldCustom name='firstName' label="First Name" />
+            </Grid>
+            <Grid item xs={5}>
+              <TextFieldCustom name='lastName' label="Last Name" />
+            </Grid>
+          </Grid>
+          <br></br>
+          <br></br>
 
-        </Grid>
-      </Grid>
-      <br></br>
-      <br></br>
-
-      <Typography variant='h5' style={{ marginLeft: 100 }}>
-        Email Address
-      </Typography>
-      <Grid container style={{ marginLeft: 100 }}>
-        <Grid item xs={5}>
-          <TextField id="standard-basic" label="Email" />
-        </Grid>
-        <Grid item xs={5}>
-          <FormControl className={classes.formControl}>
-            <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-              Role
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-placeholder-label-label"
-              id="demo-simple-select-placeholder-label"
-              value={age}
-              onChange={handleChange}
-              displayEmpty
-              className={classes.selectEmpty}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-      </Grid>
-      <br></br>
-      <br></br>
+          <Typography variant='h5' style={{ marginLeft: 100 }}>
+            Email Address
+          </Typography>
+          <Grid container style={{ marginLeft: 100 }}>
+            <Grid item xs={5}>
+              <TextFieldCustom name='email' label="email" />
+            </Grid>
+            <Grid item xs={5}>
+              <Select name='role' options={Option} label='Roles'/>
+            </Grid>
+          </Grid>
+          <br></br>
+          <br></br>
 
 
-      <Typography variant='h5' style={{ marginLeft: 100 }}>
-        Login Information
-      </Typography>
-      <Grid container style={{ marginLeft: 100 }}>
-        <Grid item xs={5}>
-          {/* <Typography variant='h6' >First Name</Typography>
-          <input type='text'></input> */}
-          {/* <TextField id="standard-basic" label="Password" /> */}
-          <FormControl variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={showPassword ? 'text' : 'password'}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? '🙏' : '👋'}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={5}>
-          {/* <TextField id="standard-basic" label="Confrim Password" /> */}
-          <FormControl variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={showPassword ? 'text' : 'password'}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? '🙏' : '👋'}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl>
-        </Grid>
-      </Grid>
+          <Typography variant='h5' style={{ marginLeft: 100 }}>
+            Login Information
+          </Typography>
+          <Grid container style={{ marginLeft: 100 }}>
+            <Grid item xs={5}>
+              <Password name='password' label="Password" />
+            </Grid>
+            <Grid item xs={5}>
+              <Password name='confirmPassword' label="Confirm Password" />
+            </Grid>
+          </Grid>
 
-      <br></br>
-      <br></br>
-      <Button variant="contained" color="primary" style={{ marginLeft: 100 }}>Register</Button>
+          <br></br>
+          <br></br>
+          <Button type='submit' variant="contained" color="primary" style={{ marginLeft: 100 }}>Register</Button>
 
-      {/* <div>
-        <Typography variant='h6' color='secondary' align='center'>
-          {props.role}
-        </Typography>
-      </div>
-      <SimpleCard /> */}
+        </Form>
+      </Formik>
+
+
+
+      
 
     </div>
 
   )
 }
+
