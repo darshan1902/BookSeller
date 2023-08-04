@@ -33,7 +33,7 @@ const SelectWrapper = ({
     <TextField {...configSelect}   style={{width:200}}>
       {options.map((item, pos) => {
         return (
-          <MenuItem key={pos} value={item}>
+          <MenuItem key={pos+2} id={pos+2} value={pos+2}>
             {options[pos]}
           </MenuItem>
         )
