@@ -51,8 +51,8 @@ export default function Register(props) {
   };
   return (
     < div style={{ overflow: 'hidden' }}>
-      <Typography variant='h4' align='center'>
-        Create Account
+      <Typography variant='h4' align='center' color='primary' style={{fontWeight:'bolder'}}>
+        CREATE ACCOUNT
       </Typography>
 
 

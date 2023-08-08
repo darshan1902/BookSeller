@@ -11,6 +11,7 @@ const Password = ({
   const [field, meta] = useField(name);
   const configTextField = {
     fullWidth: true,
+    autoComplete:"",
     ...field,
     ...otherProps,
     }
