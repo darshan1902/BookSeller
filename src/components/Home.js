@@ -15,7 +15,6 @@ import { materialCommonStyles } from "../utils/materialCommonStyles";
 import { defaultFilter } from "../constant/constant";
 import categoryService from "../service/category.service";
 import bookService from "../service/book.service";
-
 export default function BookListing() {
   const authContext = useAuthContext();
   // const cartContext = useCartContext();

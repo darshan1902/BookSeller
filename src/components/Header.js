@@ -59,7 +59,7 @@ export default function Header() {
             <NavLink to="/product">View Book</NavLink>
             <NavLink to="/add-book">Add Book</NavLink>
             {/* <NavLink to="/bookList">Book List</NavLink> */}
-            <NavLink to="/user">User</NavLink>
+            <NavLink to="/users">Users</NavLink>
             {/* <NavLink to="/update-profile">Update Profile</NavLink> */}
             <Button color='primary' onClick={()=>authContext.signOut()}>LogOut</Button>
           </>

@@ -19,17 +19,16 @@ import {
 import { useState } from "react";
 import Confirm from "./Confirm";
 import { useNavigate } from "react-router-dom";
+import userService from "../service/user.service";
 
-const ProductPage = () => {
+const Users = () => {
   // initial filter while page is rendering
   const defaultFilter = {
     pageIndex: 1,
-    pageSize: 4,
+    pageSize: 10,
   };
-
-  // set Book Records:In this pageIndex,pageSize,totalPages is for the navigation purpose
-  // and items array is used for add Book records in page
-  const [bookRecords, setBookRecords] = useState({
+  const [filters, setFilters] = useState(defaultFilter);
+  const [user, setUser] = useState({
     pageIndex: 0,
     pageSize: 10,
     totalPages: 1,
@@ -37,45 +36,55 @@ const ProductPage = () => {
     totalItems: 0,
   });
 
-  const [categories, setCategories] = useState([]);
   const [selectedId, setSelectedId] = useState(0);
-  const [filters, setFilters] = useState(defaultFilter);
   const [open, setOpen] = useState(false);
   const Navigate = useNavigate();
   const columns = [
-    { id: "id", label: "ID", width: 50 },
-    { id: "name", label: "Book Name", width: 70 },
-    { id: "price", label: "Price", width: 70 },
-    { id: "category", label: "Category", width: 70 },
+    { id: "ID", label: "ID", width: 70 },
+    { id: "firstName", label: "First Name", width: 70 },
+    { id: "lastName", label: "Last Name", width: 70 },
+    {
+      id: "email",
+      label: "Email",
+      width: 150,
+    },
+    {
+      id: "role",
+      label: "Role",
+      width: 70,
+    },
   ];
 
   useEffect(() => {
-    categoryService.getAll().then((res) => {
+    getAllUsers({ ...filters });
+  }, [filters]);
+
+  const getAllUsers = async (filters) => {
+    await userService.getAllUsers(filters).then((res) => {
       if (res) {
-        setCategories(res);
+        setUser(res);
       }
     });
-  }, []);
-  const searchAllBooks = (filters) => {
-    bookService.getAll(filters).then((res) => {
-      setBookRecords(res);
-    });
   };
-  useEffect(() => {
-    searchAllBooks({ ...filters });
-  }, [filters]);
   const onConfirmDelete = () => {
-    bookService.deleteBook(selectedId).then((res) => {
-      toast.success("Record Deleted Successfully...");
-      setOpen(false);
-      setFilters({ ...filters });
+    userService.deleteUser(selectedId).then((res) => {
+      if (res) {
+        toast.success("User Deleted Successfully...");
+        setOpen(false);
+        setFilters({ ...filters });
+      }
     });
   };
 
   return (
     <>
-      <Typography color="primary" align="center" variant="h4" style={{marginBottom:20,fontWeight:'bold'}}>
-        Product Page
+      <Typography
+        color="primary"
+        align="center"
+        variant="h4"
+        style={{ marginBottom: 20, fontWeight: "bold" }}
+      >
+        Users Page
       </Typography>
       <div
         className="searchContainer"
@@ -97,10 +106,9 @@ const ProductPage = () => {
           variant="outlined"
           inputProps={{ className: "small" }}
           onChange={(e) => {
-            if(e.target.value == '')
-            {
-                setFilters(defaultFilter);
-                return;
+            if (e.target.value == "") {
+              setFilters(defaultFilter);
+              return;
             }
             setFilters({
               ...filters,
@@ -108,18 +116,8 @@ const ProductPage = () => {
               pageIndex: 1,
             });
           }}
-          style={{ marginInline: 20, width: 300 }}
+          style={{width: 300 }}
         />
-        <Button
-          type="submit"
-          size="large"
-          className="productbtn"
-          variant="contained"
-          color="primary"
-          onClick={() => Navigate("/add-book")}
-        >
-          Add
-        </Button>
       </div>
       <div style={{ marginBottom: "10px" }}></div>
       <div style={{ margin: "auto", width: "80%" }}>
@@ -140,15 +138,16 @@ const ProductPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {bookRecords?.items?.map((row, index) => {
+              {user?.items?.map((row, index) => {
                 return (
                   <TableRow key={row.id}>
                     <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.price}</TableCell>
+                    <TableCell>{row.firstName}</TableCell>
+                    <TableCell>{row.lastName}</TableCell>
                     <TableCell>
-                      {categories.find((c) => c.id === row.categoryId)?.name}
+                      {row.email}
                     </TableCell>
+                    <TableCell>{row.role}</TableCell>
                     <TableCell>
                       <Button
                         type="button"
@@ -157,7 +156,7 @@ const ProductPage = () => {
                         variant="contained"
                         disableElevation
                         onClick={() => {
-                          Navigate(`/editBook/${row.id}`);
+                          Navigate(`/editUser/${row.id}`);
                         }}
                       >
                         Edit
@@ -180,7 +179,7 @@ const ProductPage = () => {
                   </TableRow>
                 );
               })}
-              {!bookRecords.items.length && (
+              {!user.items.length && (
                 <TableRow>
                   <TableCell colSpan={5}>
                     <Typography align="center" className="noDataText">
@@ -195,7 +194,7 @@ const ProductPage = () => {
         <TablePagination
           rowsPerPageOptions={[4, 5, 10, 100]}
           component="div"
-          count={bookRecords.totalItems}
+          count={user.totalItems}
           rowsPerPage={filters.pageSize || 0}
           page={filters.pageIndex - 1}
           onPageChange={(e, newPage) => {
@@ -214,10 +213,10 @@ const ProductPage = () => {
           onClose={() => setOpen(false)}
           onConfirm={() => onConfirmDelete()}
           title="Delete book"
-          description="Are you sure you want to delete this book?"
+          description="Are you sure you want to delete this user?"
         />
       </div>
     </>
   );
 };
-export default ProductPage;
+export default Users;

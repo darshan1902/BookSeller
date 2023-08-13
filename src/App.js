@@ -14,8 +14,8 @@ import { AuthProvider } from './contexts/auth';
 import { CartProvider } from './contexts/cartContext';
 import EditBook from './components/EditBook';
 import ProductPage from './components/ProductPage';
-
-
+import Users from './components/Users';
+import EditUser from './components/EditUser';
 const theme = createTheme({
   palette: {
     primary: {
@@ -64,6 +64,8 @@ function App() {
         <Route path='/editBook/:id' element={<EditBook />} />
         <Route path='/product' element={<ProductPage />} />
         <Route path='/add-book' element={<EditBook />} />
+        <Route path='/users' element={<Users />} />
+        <Route path='/editUser/:id' element={<EditUser />} />
 
       </Routes>
 
