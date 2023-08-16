@@ -16,6 +16,8 @@ import EditBook from './components/EditBook';
 import ProductPage from './components/ProductPage';
 import Users from './components/Users';
 import EditUser from './components/EditUser';
+import Category from './components/categoty';
+import EditCategory from './components/EditCategory';
 const theme = createTheme({
   palette: {
     primary: {
@@ -66,6 +68,9 @@ function App() {
         <Route path='/add-book' element={<EditBook />} />
         <Route path='/users' element={<Users />} />
         <Route path='/editUser/:id' element={<EditUser />} />
+        <Route path='/category' element={<Category />} />
+        <Route path='/editCategory/:id' element={<EditCategory />} />
+        <Route path='/add-category' element={<EditCategory />} />
 
       </Routes>
 

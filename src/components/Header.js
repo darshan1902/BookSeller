@@ -60,6 +60,7 @@ export default function Header() {
             <NavLink to="/add-book">Add Book</NavLink>
             {/* <NavLink to="/bookList">Book List</NavLink> */}
             <NavLink to="/users">Users</NavLink>
+            <NavLink to="/category">Categories</NavLink>
             {/* <NavLink to="/update-profile">Update Profile</NavLink> */}
             <Button color='primary' onClick={()=>authContext.signOut()}>LogOut</Button>
           </>
