@@ -134,7 +134,7 @@ const EditBook = () => {
 
             <Grid container justifyContent="space-evenly">
               <Grid item xs={5}>
-                <Select name="categoryId" options={categories} label="Roles" />
+                <Select name="categoryId" options={categories} label="Category" />
               </Grid>
               <Grid item xs={5}>
                 {/* <TextFieldCustom name='email' defaultValue={"mnkj"} label="email" /> */}
