@@ -19,6 +19,7 @@ import EditUser from './components/EditUser';
 import Category from './components/categoty';
 import EditCategory from './components/EditCategory';
 import Cart from './components/Cart';
+import { Component } from 'react';
 const theme = createTheme({
   palette: {
     primary: {
@@ -81,6 +82,7 @@ function App() {
     </ThemeProvider>
 
   );
+  
 }
 
-export default App;
+export default App; 
